@@ -63,9 +63,9 @@ class MoviesController < ApplicationController
   
   #my additions
   def find_similar_movies
-    @movie = Movie.find(params[:id])
-    @movies = Movie.similar_movies(params[:id])
-    if (!@movie or @movie.director.empty?)
+    @movie = Movie.find(params[:id].to_i)
+    @movies = Movie.similar_movies(params[:id].to_i)
+    if (@movie.nil? or @movie.director.nil? or @movie.director.empty?)
       #need to somehow tell them no movie found...
       flash[:warning ] = "'#{@movie.title}' has no director info" 
       redirect_to root_path
